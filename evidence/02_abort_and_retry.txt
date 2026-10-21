@@ -1,0 +1,10 @@
+$ git merge --no-ff feature/completed-filter -m Merge completion filters
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+$ git status --short
+UU index.html
+$ git merge --abort
+$ git rev-parse HEAD
+bb15e8507f1c4a48b12369b67f5ef6dfe6e551cd
+$ git status --porcelain

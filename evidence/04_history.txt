@@ -1,0 +1,13 @@
+$ git log --graph --all --oneline --decorate
+*   4b4480a (HEAD -> main) Combine completion filters and progress summary
+|\  
+| * 767d91c (feature/completed-filter) Filter the planner by task completion
+* |   bb15e85 Merge the progress summary into main
+|\ \  
+| |/  
+|/|   
+| * f8dc32b (feature/progress-summary) Show completed tasks in a progress summary
+|/  
+* ca15918 Clarify task storage and input guidance
+* 30e54a9 Give the planner a personal heading
+* bd816fe Create local study planner and branch convention

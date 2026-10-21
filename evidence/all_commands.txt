@@ -1,0 +1,177 @@
+$ git init -b main
+Initialized empty Git repository in /workspace/scratch/a8a360f11b60/git_assignment/Study_Planner/.git/
+
+$ git config user.name Guided Git Exercise
+
+$ git config user.email practice@example.invalid
+
+$ git config core.autocrlf false
+
+$ git add index.html README.md
+
+$ git commit -m Create local study planner and branch convention
+[main (root-commit) bd816fe] Create local study planner and branch convention
+ 2 files changed, 126 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 index.html
+
+$ git add -p index.html
+diff --git a/index.html b/index.html
+index 585ec96..6384967 100644
+--- a/index.html
++++ b/index.html
+@@ -25,7 +25,7 @@ li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:in
+ <body>
+ <main>
+ <div class="eyebrow">PERSONAL COURSEWORK</div>
+-<h1>Study Planner</h1>
++<h1>My Study Planner</h1>
+ <p class="intro">Keep your coursework in one place. Choose a task and make progress.</p>
+ <form id="task-form">
+   <div class="field">
+(1/2) Stage this hunk [y,n,q,a,d,j,J,g,/,e,p,?]? @@ -51,7 +51,7 @@ li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:in
+ </div>
+ <ul id="tasks" aria-label="Study tasks"></ul>
+ <p id="empty" class="empty" hidden>No tasks in this view.</p>
+-<p class="tip">Your tasks are saved in this browser.</p>
++<p class="tip">Your tasks stay in this browser. Add a course and priority to keep them clear.</p>
+ </main>
+ <script>
+ const storageKey = 'git-practice-study-planner-v1';
+(2/2) Stage this hunk [y,n,q,a,d,K,g,/,e,p,?]? 
+[Interactive answers supplied: y, n]
+
+$ git diff --cached -- index.html
+diff --git a/index.html b/index.html
+index 585ec96..4bf2006 100644
+--- a/index.html
++++ b/index.html
+@@ -25,7 +25,7 @@ li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:in
+ <body>
+ <main>
+ <div class="eyebrow">PERSONAL COURSEWORK</div>
+-<h1>Study Planner</h1>
++<h1>My Study Planner</h1>
+ <p class="intro">Keep your coursework in one place. Choose a task and make progress.</p>
+ <form id="task-form">
+   <div class="field">
+
+$ git diff -- index.html
+diff --git a/index.html b/index.html
+index 4bf2006..6384967 100644
+--- a/index.html
++++ b/index.html
+@@ -51,7 +51,7 @@ li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:in
+ </div>
+ <ul id="tasks" aria-label="Study tasks"></ul>
+ <p id="empty" class="empty" hidden>No tasks in this view.</p>
+-<p class="tip">Your tasks are saved in this browser.</p>
++<p class="tip">Your tasks stay in this browser. Add a course and priority to keep them clear.</p>
+ </main>
+ <script>
+ const storageKey = 'git-practice-study-planner-v1';
+
+$ git commit -m Give the planner a personal heading -m Stage only the heading change so the help-text improvement stays separate.
+[main 30e54a9] Give the planner a personal heading
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ git add index.html
+
+$ git commit -m Clarify task storage and input guidance
+[main ca15918] Clarify task storage and input guidance
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+$ git rev-parse HEAD
+ca1591842c21c821a688b29b2c12f94464bd1973
+
+$ git switch -c feature/progress-summary
+Switched to a new branch 'feature/progress-summary'
+
+$ git add index.html
+
+$ git commit -m Show completed tasks in a progress summary
+[feature/progress-summary f8dc32b] Show completed tasks in a progress summary
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+$ git switch main
+Switched to branch 'main'
+
+$ git switch -c feature/completed-filter
+Switched to a new branch 'feature/completed-filter'
+
+$ git add index.html
+
+$ git commit -m Filter the planner by task completion
+[feature/completed-filter 767d91c] Filter the planner by task completion
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+$ git switch main
+Switched to branch 'main'
+
+$ git merge --no-ff feature/progress-summary -m Merge the progress summary into main
+Merge made by the 'ort' strategy.
+ index.html | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+$ git rev-parse HEAD
+bb15e8507f1c4a48b12369b67f5ef6dfe6e551cd
+
+$ git merge --no-ff feature/completed-filter -m Merge completion filters
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+
+$ git status --short
+UU index.html
+
+$ git merge --abort
+
+$ git rev-parse HEAD
+bb15e8507f1c4a48b12369b67f5ef6dfe6e551cd
+
+$ git status --porcelain
+
+$ git merge --no-ff feature/completed-filter -m Merge completion filters
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+
+$ git add index.html
+
+$ git commit -m Combine completion filters and progress summary -m Resolve the planned heading conflict by combining both descriptions. Keep both the progress update and completion filtering behavior.
+[main 4b4480a] Combine completion filters and progress summary
+
+$ git status
+On branch main
+nothing to commit, working tree clean
+
+$ git log --graph --all --oneline --decorate
+*   4b4480a (HEAD -> main) Combine completion filters and progress summary
+|\  
+| * 767d91c (feature/completed-filter) Filter the planner by task completion
+* |   bb15e85 Merge the progress summary into main
+|\ \  
+| |/  
+|/|   
+| * f8dc32b (feature/progress-summary) Show completed tasks in a progress summary
+|/  
+* ca15918 Clarify task storage and input guidance
+* 30e54a9 Give the planner a personal heading
+* bd816fe Create local study planner and branch convention
+
+$ git diff --check
+
+$ git fsck --no-dangling
+
+$ git status --porcelain
+
+$ git rev-list --count main
+7
+
+$ git rev-list --count --merges main
+2
+
+$ git branch --list
+  feature/completed-filter
+  feature/progress-summary
+* main

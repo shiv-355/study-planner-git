@@ -1,0 +1,25 @@
+{
+  "repository": "https://github.com/shiv-355/study-planner-git",
+  "source": "Actual local guided Git exercise",
+  "method": "Replay of identical file snapshots and merge-parent relationships through GitHub",
+  "initialization_commit": "82bc8a753ee031ed3c5d2ba88171dc842d90d4a3",
+  "original_to_github": {
+    "bd816fe012d6ac53012bb990a239ea41c88e5003": "8d64f1198058f25b9730b805245472562ccd0511",
+    "30e54a944a2fc83901efe4bb11628ec6d79a48c0": "b7921d67e6bc366e220e317a4dcfa02595f0bc91",
+    "ca1591842c21c821a688b29b2c12f94464bd1973": "6d0fe73622a45a55dcc42fb0da099eeff1a0f0fe",
+    "f8dc32b6c982d3ebeec10c68a25f6501bc68b6aa": "44f96d4483315b386be1628227f903cfc848def0",
+    "bb15e8507f1c4a48b12369b67f5ef6dfe6e551cd": "48241e1671409d5347cd00a029cbfe60dedd67f9",
+    "767d91c4d49238ab54c7c78da9ed7707bc4f2b91": "02c4ca5dffaf25c1b1b79d915535208a285bedda",
+    "4b4480ae2a041a708cea937b61a6f7a47e2f4156": "4dac9132f80d8ab2d904deca7a98301e78054b7e"
+  },
+  "source_branches": {
+    "main": "4b4480ae2a041a708cea937b61a6f7a47e2f4156",
+    "feature/progress-summary": "f8dc32b6c982d3ebeec10c68a25f6501bc68b6aa",
+    "feature/completed-filter": "767d91c4d49238ab54c7c78da9ed7707bc4f2b91"
+  },
+  "github_practice_branches": {
+    "main": "4dac9132f80d8ab2d904deca7a98301e78054b7e",
+    "feature/progress-summary": "44f96d4483315b386be1628227f903cfc848def0",
+    "feature/completed-filter": "02c4ca5dffaf25c1b1b79d915535208a285bedda"
+  }
+}

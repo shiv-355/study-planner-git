@@ -1,0 +1,11 @@
+Local JavaScript logic verification using a lightweight DOM harness.
+Not a real browser rendering test.
+
+PASS Initial task list renders three entries
+PASS Progress summary from first branch is correct
+PASS Custom task can be added
+PASS Completing a task updates progress
+PASS Completed filter from second branch works
+PASS Open filter excludes completed tasks
+PASS Saved tasks and completion state load in a new page context
+PASS Task removal works

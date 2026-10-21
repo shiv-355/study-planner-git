@@ -1,0 +1,10 @@
+$ git merge --no-ff feature/completed-filter -m Merge completion filters
+Auto-merging index.html
+CONFLICT (content): Merge conflict in index.html
+Automatic merge failed; fix conflicts and then commit the result.
+$ git add index.html
+$ git commit -m Combine completion filters and progress summary -m Resolve the planned heading conflict by combining both descriptions. Keep both the progress update and completion filtering behavior.
+[main 4b4480a] Combine completion filters and progress summary
+$ git status
+On branch main
+nothing to commit, working tree clean

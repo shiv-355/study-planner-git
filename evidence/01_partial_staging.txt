@@ -1,0 +1,53 @@
+$ git add -p index.html
+diff --git a/index.html b/index.html
+index 585ec96..6384967 100644
+--- a/index.html
++++ b/index.html
+@@ -25,7 +25,7 @@ li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:in
+ <body>
+ <main>
+ <div class="eyebrow">PERSONAL COURSEWORK</div>
+-<h1>Study Planner</h1>
++<h1>My Study Planner</h1>
+ <p class="intro">Keep your coursework in one place. Choose a task and make progress.</p>
+ <form id="task-form">
+   <div class="field">
+(1/2) Stage this hunk [y,n,q,a,d,j,J,g,/,e,p,?]? @@ -51,7 +51,7 @@ li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:in
+ </div>
+ <ul id="tasks" aria-label="Study tasks"></ul>
+ <p id="empty" class="empty" hidden>No tasks in this view.</p>
+-<p class="tip">Your tasks are saved in this browser.</p>
++<p class="tip">Your tasks stay in this browser. Add a course and priority to keep them clear.</p>
+ </main>
+ <script>
+ const storageKey = 'git-practice-study-planner-v1';
+(2/2) Stage this hunk [y,n,q,a,d,K,g,/,e,p,?]? 
+[Interactive answers supplied: y, n]
+$ git diff --cached -- index.html
+diff --git a/index.html b/index.html
+index 585ec96..4bf2006 100644
+--- a/index.html
++++ b/index.html
+@@ -25,7 +25,7 @@ li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:in
+ <body>
+ <main>
+ <div class="eyebrow">PERSONAL COURSEWORK</div>
+-<h1>Study Planner</h1>
++<h1>My Study Planner</h1>
+ <p class="intro">Keep your coursework in one place. Choose a task and make progress.</p>
+ <form id="task-form">
+   <div class="field">
+$ git diff -- index.html
+diff --git a/index.html b/index.html
+index 4bf2006..6384967 100644
+--- a/index.html
++++ b/index.html
+@@ -51,7 +51,7 @@ li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:in
+ </div>
+ <ul id="tasks" aria-label="Study tasks"></ul>
+ <p id="empty" class="empty" hidden>No tasks in this view.</p>
+-<p class="tip">Your tasks are saved in this browser.</p>
++<p class="tip">Your tasks stay in this browser. Add a course and priority to keep them clear.</p>
+ </main>
+ <script>
+ const storageKey = 'git-practice-study-planner-v1';
