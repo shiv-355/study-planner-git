@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Study Planner</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f4f5f7;color:#172332;font:16px/1.5 system-ui,sans-serif}
+main{max-width:940px;margin:48px auto;padding:36px;background:white;border:1px solid #dde2e7;border-radius:18px}
+.eyebrow{font-size:12px;letter-spacing:1.7px;font-weight:700;color:#536477}h1{font-size:34px;margin:8px 0 6px;letter-spacing:-1px}
+.intro{margin:0 0 26px;color:#536477}.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+form{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:12px;align-items:end}
+input,select,button{font:inherit;border:1px solid #bac6d0;border-radius:8px;padding:10px 12px;max-width:100%}
+input,select{width:100%;background:white;color:#172332}button{cursor:pointer;background:#153f64;color:white;border-color:#153f64}
+button.secondary{padding:5px 12px;background:white;color:#536477;border-color:#c9d2da;font-size:13px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;margin-top:28px;min-height:42px}
+.toolbar select{width:170px}.toolbar h2{font-size:18px;margin:0}#progress{color:#536477;margin:10px 0 18px}
+ul{padding:0;margin:14px 0 0;list-style:none}li{display:flex;align-items:center;gap:14px;padding:18px 0;border-top:1px solid #e5e9ed}
+li input{width:18px;height:18px;flex:none}.task-content{flex:1}.task-title{font-weight:600}.task-meta{font-size:13px;color:#536477;margin-top:4px}
+li.done .task-title{text-decoration:line-through;color:#74818f}.badge{display:inline-block;background:#edf2f7;color:#334e68;border-radius:5px;padding:1px 7px;margin-left:7px;font-size:12px}
+.tip{margin-top:28px;padding-top:20px;border-top:1px solid #e5e9ed;font-size:13px;color:#536477}.empty{color:#536477;padding:20px 0}
+@media(max-width:760px){main{margin:16px;padding:22px}form{grid-template-columns:1fr 1fr}.field:first-child{grid-column:1/-1}h1{font-size:27px}}
+</style>
+</head>
+<body>
+<main>
+<div class="eyebrow">PERSONAL COURSEWORK</div>
+<h1>Study Planner</h1>
+<p class="intro">Keep your coursework in one place. Choose a task and make progress.</p>
+<form id="task-form">
+  <div class="field">
+    <label for="task-name">Task</label>
+    <input id="task-name" maxlength="120" placeholder="What do you need to finish?" required>
+  </div>
+  <div class="field">
+    <label for="course">Course</label>
+    <input id="course" maxlength="30" placeholder="e.g. Capstone">
+  </div>
+  <div class="field">
+    <label for="priority">Priority</label>
+    <select id="priority"><option>Normal</option><option>High</option><option>Low</option></select>
+  </div>
+  <button type="submit">Add task</button>
+</form>
+<div class="toolbar">
+  <h2>Your tasks</h2>
+  <!-- filter-control -->
+</div>
+<div id="summary-slot">
+  <!-- progress-control -->
+</div>
+<ul id="tasks" aria-label="Study tasks"></ul>
+<p id="empty" class="empty" hidden>No tasks in this view.</p>
+<p class="tip">Your tasks are saved in this browser.</p>
+</main>
+<script>
+const storageKey = 'git-practice-study-planner-v1';
+const seed = [
+  {id:'a',name:'Outline capstone requirements',course:'Capstone',priority:'High',done:false},
+  {id:'b',name:'Review Git merge conflicts',course:'Git practice',priority:'Normal',done:false},
+  {id:'c',name:'Organize this week’s notes',course:'Study skills',priority:'Low',done:true}
+];
+let tasks;
+try {
+  const stored = JSON.parse(localStorage.getItem(storageKey));
+  const valid = Array.isArray(stored) && stored.every(t => t && typeof t.id === 'string' && typeof t.name === 'string' && typeof t.course === 'string' && ['Low','Normal','High'].includes(t.priority) && typeof t.done === 'boolean');
+  tasks = valid ? stored : structuredClone(seed);
+} catch { tasks = structuredClone(seed); }
+function save(){try{localStorage.setItem(storageKey,JSON.stringify(tasks))}catch{document.querySelector('.tip').textContent='Browser storage is unavailable. Keep this page open to retain your tasks.'}}
+function render(){
+  const list = document.getElementById('tasks');
+  list.replaceChildren();
+  // progress-update
+  let visible = tasks;
+  // filter-update
+  document.getElementById('empty').hidden = visible.length !== 0;
+  for(const task of visible){
+    const row = document.createElement('li');
+    row.className = task.done ? 'done' : '';
+    const box = document.createElement('input');box.type='checkbox';box.checked=task.done;box.setAttribute('aria-label','Complete '+task.name);
+    box.addEventListener('change',()=>{task.done=box.checked;save();render()});
+    const content = document.createElement('div');content.className='task-content';
+    const title = document.createElement('div');title.className='task-title';title.textContent=task.name;
+    const meta = document.createElement('div');meta.className='task-meta';meta.textContent=task.course || 'General';
+    const badge = document.createElement('span');badge.className='badge';badge.textContent=task.priority;meta.append(badge);
+    const remove = document.createElement('button');remove.className='secondary';remove.type='button';remove.textContent='Remove';remove.setAttribute('aria-label','Remove '+task.name);
+    remove.addEventListener('click',()=>{tasks=tasks.filter(t=>t.id!==task.id);save();render()});
+    content.append(title,meta);row.append(box,content,remove);list.append(row);
+  }
+}
+document.getElementById('task-form').addEventListener('submit',event=>{
+  event.preventDefault();const name=document.getElementById('task-name').value.trim();if(!name)return;
+  tasks.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2),name,course:document.getElementById('course').value.trim(),priority:document.getElementById('priority').value,done:false});
+  save();event.target.reset();render();document.getElementById('task-name').focus();
+});
+// filter-event
+render();
+</script>
+</body>
+</html>
